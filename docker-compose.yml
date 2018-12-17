@@ -3,17 +3,16 @@
 
   app:
    hostname: "app"
-   image: php:fpm
+   image: php:7.2-fpm
+   env_file:
+     - ./Docker/app/app.env           
    volumes:
-           - ./code:/code     
-   expose:
-     - 9000
-   links:
-     - db
+     - ./code:/code
+   restart: unless-stopped    
    networks:
     vp-network:
      aliases:
-      - server1.docker      
+     - server1.docker      
   nginx:
    hostname: "nginx"
    image: nginx:latest
@@ -22,30 +21,29 @@
    volumes:
      - ./code:/code
      - ./site.conf:/etc/nginx/conf.d/default.conf
-   links:
-     - app
+   restart: unless-stopped    
    networks:
     vp-network:
      aliases:
-      - server2.docker      
+     - server2.docker      
   db:
    hostname: "db"
-   image: mysql:5.6.28
+   image: mysql:5.7
    volumes:
      - /var/lib/mysql
-   ports:
-     - "3306:3306"
-   expose:
-     - 3306      
+   restart: unless-stopped    
    networks:
     vp-network:
      aliases:
-      - server3.docker      
-   environment:
-     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
-     - MYSQL_DATABASE=${MYSQL_DATABASE:-dbname}
-     - MYSQL_USER=${MYSQL_USER:-dbuser}
-     - MYSQL_PASSWORD=${MYSQL_PASSWORD:-dbpassword}
+     - server3.docker
+   env_file:
+     - ./Docker/db/db.env
+       #   command: 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" < ./createDB.sql'
+       #   environment:
+       #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+       #     - MYSQL_DATABASE=${MYSQL_DATABASE:-dbname}
+       #     - MYSQL_USER=${MYSQL_USER:-dbuser}
+       #     - MYSQL_PASSWORD=${MYSQL_PASSWORD:-dbpassword}
  networks:
          vp-network:
                  driver: bridge
