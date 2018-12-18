@@ -38,16 +38,6 @@
      - server3.docker
    env_file:
      - ./Docker/db/db.env
-   volumes:
-     - ./createDB.sql:/docker-entrypoint-initdb.d/createDB.sql      
-           #     - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
-       #   entrypoint: ["wait-for-it.sh", "mysql", "--", "docker-entrypoint.sh"]
-          #   command: 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" < ./createDB.sql'
-       #   environment:
-       #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
-       #     - MYSQL_DATABASE=${MYSQL_DATABASE:-dbname}
-       #     - MYSQL_USER=${MYSQL_USER:-dbuser}
-       #     - MYSQL_PASSWORD=${MYSQL_PASSWORD:-dbpassword}
  networks:
          vp-network:
                  driver: bridge
