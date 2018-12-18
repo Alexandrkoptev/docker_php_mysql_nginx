@@ -1,4 +1,4 @@
-
-1 Download and unzip the WordPress package if you haven't already.
+<p>1 Download and unzip the WordPress package if you haven't already.
 2 Copy the WordPress files to the code folder.
-2 Run command - sudo docker-compose up --build
+2 Run command - sudo docker-compose up --build</p>
+
