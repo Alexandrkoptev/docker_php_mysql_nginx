@@ -16,8 +16,6 @@
    restart: unless-stopped
    networks:
     vp-network:
-     aliases:
-     - server1.docker
   nginx:
    hostname: "nginx"
    image: nginx:latest
@@ -29,18 +27,14 @@
    restart: unless-stopped
    networks:
     vp-network:
-     aliases:
-     - server2.docker
   db:
    hostname: "${DB_HOSTNAME:-db}"
    image: mysql:5.7
    volumes:
-     - /var/lib/mysql
+     - /var/lib/mysql:/var/lib/mysql
    restart: unless-stopped
    networks:
     vp-network:
-     aliases:
-     - server3.docker
    environment:
      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
      - MYSQL_DATABASE=${MYSQL_DATABASE:-dbname}
