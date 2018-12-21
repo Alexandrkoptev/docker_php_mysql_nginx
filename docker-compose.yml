@@ -16,6 +16,11 @@
    restart: unless-stopped
    networks:
     vp-network:
+   logging:
+    driver: "json-file"
+    options:
+     max-size: "10M"
+     max-file: "5"
   nginx:
    hostname: "nginx"
    image: nginx:latest
@@ -27,6 +32,11 @@
    restart: unless-stopped
    networks:
     vp-network:
+   logging:
+    driver: "json-file"
+    options:
+     max-size: "10M"
+     max-file: "5"
   db:
    hostname: "${DB_HOSTNAME:-db}"
    image: mysql:5.7
@@ -40,6 +50,11 @@
      - MYSQL_DATABASE=${MYSQL_DATABASE:-dbname}
      - MYSQL_USER=${MYSQL_USER:-dbuser}
      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-dbpassword}
+   logging:
+    driver: "json-file"
+    options:
+     max-size: "10M"
+     max-file: "5"
  networks:
          vp-network:
                  driver: bridge
